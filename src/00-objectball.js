@@ -215,13 +215,20 @@ console.log(playerNumbers(awayPlayers));
 
 const players = Object.assign({}, homePlayers, awayPlayers);
 
-
+/*
 function playerStats(playerName){
     for(player in players){
         if(player === playerName){
-            return players[player];
+            console.log("Player Stats comparison is working");
+            return [playerName];
         }
     }
 }
+*/
 
-console.log("Player Stats: " + playerStats("Brendan Haywood"))
+
+function playerStats(playerName){
+    return players[playerName];
+}
+
+console.log("Player Stats: " , playerStats("Brendan Haywood"));
