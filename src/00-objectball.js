@@ -56,7 +56,6 @@ function gameObject () {
                     slamDunks: 1
                 }
             }
-
         },
         away: {
             teamName: "Charlotte Hornets" ,
@@ -118,3 +117,111 @@ function gameObject () {
 }
 
 console.log(gameObject());
+
+
+function homeTeamName(object) {
+    return object.home.teamName;
+}
+
+console.log(homeTeamName(gameObject()))
+
+
+//function for points score by name
+function numPointsScored(name){
+    const game = gameObject();
+    for(const gameKey in game){
+        const teamObj = game[gameKey];
+        for(const teamKey in teamObj){
+            const playerObj = teamObj.players
+            for(const playerKey in playerObj){
+                if(playerKey === name){
+                    return playerObj[playerKey].points
+                }
+            }
+        }
+    }
+}
+
+console.log("Points for Player: " + numPointsScored("Brendan Haywood"))
+
+
+//function for shoe size by name
+function shoeSize(playerName) {
+    const game = gameObject();
+    for(const gameKeys in game) {
+        const teamObj = game[gameKeys];
+        for(const teamKeys in teamObj){
+            const playerObj = teamObj[teamKeys];
+            for(const playerKey in playerObj){
+                if(playerKey === playerName){
+                    return playerObj[playerKey].shoe
+                }
+            }
+        }
+    }
+}
+
+console.log("Shoe Size is: " + shoeSize("Brendan Haywood"));
+
+
+//function for team colors
+function teamColors(team){
+    const game = gameObject();
+    for(gameKey in game){
+        const teamObj = game[gameKey];
+        for(teamKey in teamObj){
+            if(teamObj[teamKey] === team){
+                return teamObj.colors
+            }
+        }
+    }
+}
+
+console.log("The colors are: " + teamColors("Brooklyn Nets"))
+
+
+function teamName() {
+    const teamNameList = [];
+    const game = gameObject();
+    for(gameKey in game){
+        const teamObj = game[gameKey]
+        for (teamKey in teamObj){
+            if(teamKey === "teamName"){
+                console.log("this is working")
+                teamNameList.push(teamObj[teamKey]);
+                console.log(teamNameList);
+            }
+        }
+    }
+    return teamNameList;
+}
+
+console.log("Team Name: " + teamName());
+
+const game = gameObject();
+const homePlayers = game.home.players;
+const awayPlayers = game.away.players;
+
+function playerNumbers(object) {
+    const teamNumbers = []
+    for(player in object){
+        teamNumbers.push(object[player].number)
+    }
+    return teamNumbers;
+}
+
+console.log(playerNumbers(homePlayers));
+console.log(playerNumbers(awayPlayers));
+
+const players = Object.assign({}, homePlayers, awayPlayers);
+
+
+function playerStats(playerName){
+    for(player in players){
+        if(player === playerName){
+            return players[player];
+        }
+    }
+}
+
+console.log("Player Stats: " + playerStats("Brendan Haywood"))
