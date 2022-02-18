@@ -1,7 +1,8 @@
-console.log('Advanced debugging example running.')
-debugger
+//console.log('Advanced debugging example running.')
+//debugger
 
 // first, define the function.
+/*
 function goodPractices() {
   let game = gameObject();
   for (let gameKey in game) {
@@ -23,6 +24,7 @@ function goodPractices() {
     }
   }
 }
+*/
 
 // then, call the function so it runs!
-goodPractices()
+//goodPractices()

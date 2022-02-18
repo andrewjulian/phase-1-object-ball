@@ -1,4 +1,3 @@
-
 function gameObject () {
     return {
         home: {
@@ -115,81 +114,74 @@ function gameObject () {
         }
     } ;
 }
+//-----------------------------------------------------------------------------
 
-console.log(gameObject());
+//stores the game object as a function
+const game = gameObject();
 
-
-function homeTeamName(object) {
-    return object.home.teamName;
+//merges player objects from both teams into new object
+function mergePlayers () {
+    const game = gameObject();
+    const homePlayers = game.home.players;
+    const awayPlayers = game.away.players;
+    return {...homePlayers, ...awayPlayers}
 }
 
-console.log(homeTeamName(gameObject()))
 
-
-//function for points score by name
-function numPointsScored(name){
-    const game = gameObject();
-    for(const gameKey in game){
-        const teamObj = game[gameKey];
-        for(const teamKey in teamObj){
-            const playerObj = teamObj.players
-            for(const playerKey in playerObj){
-                if(playerKey === name){
-                    return playerObj[playerKey].points
-                }
-            }
+//function that finds player name using the merged object
+function findPlayerByName (name) {
+    const playersObj = mergePlayers();
+    for(const playerKey in playersObj){
+        if(playerKey === name){
+            return playersObj[playerKey]
         }
     }
+}
+
+//function returns points for a player
+function numPointsScored(name){
+    const player = findPlayerByName(name);
+    return !!player ? player.points : "Player not found"
 }
 
 console.log("Points for Player: " + numPointsScored("Brendan Haywood"))
 
+//-----------------------------------------------------------------------------
 
-//function for shoe size by name
-function shoeSize(playerName) {
-    const game = gameObject();
-    for(const gameKeys in game) {
-        const teamObj = game[gameKeys];
-        for(const teamKeys in teamObj){
-            const playerObj = teamObj[teamKeys];
-            for(const playerKey in playerObj){
-                if(playerKey === playerName){
-                    return playerObj[playerKey].shoe
-                }
-            }
-        }
-    }
+//function returns shoe size for a player
+function playerShoeSize (name) {
+    const player = findPlayerByName(name);
+    return !!player ? player.shoe : "Player Not Found"
 }
 
-console.log("Shoe Size is: " + shoeSize("Brendan Haywood"));
+console.log("Shoe Size is: " + playerShoeSize("Brendan Haywood"));
 
+//-----------------------------------------------------------------------------
 
-//function for team colors
+//function that returns the colors for a team
 function teamColors(team){
-    const game = gameObject();
     for(gameKey in game){
         const teamObj = game[gameKey];
-        for(teamKey in teamObj){
-            if(teamObj[teamKey] === team){
-                return teamObj.colors
-            }
+        if(teamObj.teamName === team){
+            return teamObj.colors
         }
     }
 }
 
-console.log("The colors are: " + teamColors("Brooklyn Nets"))
+console.log("The colors are: " + teamColors("Charlotte Hornets"))
+
+//-----------------------------------------------------------------------------
 
 
-function teamName() {
+//function that returns an array of the team names in the game
+/* function teamName() {
     const teamNameList = [];
     const game = gameObject();
     for(gameKey in game){
         const teamObj = game[gameKey]
         for (teamKey in teamObj){
             if(teamKey === "teamName"){
-                console.log("this is working")
                 teamNameList.push(teamObj[teamKey]);
-                console.log(teamNameList);
             }
         }
     }
@@ -197,11 +189,31 @@ function teamName() {
 }
 
 console.log("Team Name: " + teamName());
+ */
 
-const game = gameObject();
-const homePlayers = game.home.players;
-const awayPlayers = game.away.players;
+/* 
+function teamName() {
+    const teamNameList = []
+    for(teamsKey in game){
+        const teamObj = game[gameKey]
+        console.log(teamObj)
+        if(teamObj === "teamName"){
+            teamNameList.push(game[teamObj]);
+        }
+    }
+    return teamNameList
+}
 
+console.log("The Team names are " , teamName())
+
+ */
+
+// -----------------------------------------------------------------------------
+
+//stores the mergePlayers object in a variable
+const players = mergePlayers();
+
+//returns the player numbers for both teams
 function playerNumbers(object) {
     const teamNumbers = []
     for(player in object){
@@ -210,25 +222,16 @@ function playerNumbers(object) {
     return teamNumbers;
 }
 
-console.log(playerNumbers(homePlayers));
-console.log(playerNumbers(awayPlayers));
+// -----------------------------------------------------------------------------
 
-const players = Object.assign({}, homePlayers, awayPlayers);
-
-/*
+//returns the stats for a player
 function playerStats(playerName){
     for(player in players){
         if(player === playerName){
-            console.log("Player Stats comparison is working");
-            return [playerName];
+            return players[playerName];
         }
     }
-}
-*/
-
-
-function playerStats(playerName){
-    return players[playerName];
-}
+} 
 
 console.log("Player Stats: " , playerStats("Brendan Haywood"));
+ 
